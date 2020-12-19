@@ -31,14 +31,43 @@ function init() {
             this.cells.pop();
             var headX = this.cells[0].x;
             var headY = this.cells[0].y;
+            var nextX, nextY;
 
-            var X = headX + 1;
-            var Y = headY;
-            this.cells.unshift({x: X, y: Y});
+            if(this.direction == "right") {
+                nextX = headX + 1;
+                nextY = headY;
+            } else if (this.direction == "left") {
+                nextX = headX - 1;
+                nextY = headY;
+            } else if (this.direction == "down") {
+                nextX = headX;
+                nextY = headY + 1;
+            } else {
+                nextX = headX;
+                nextY = headY - 1;
+            }
+            
+            this.cells.unshift({x: nextX, y: nextY});
         }
     };
 
     snake.createSnake();
+    // Add a Event Listener on the Document object
+    function keyPressed(e) {
+        // Conditional statements
+        if (e.key == "ArrowRight") {
+            snake.direction = "right";
+        } else if (e.key == "ArrowLeft") {
+            snake.direction = "left";
+        } else if (e.key == "ArrowDown") {
+            snake.direction = "down";
+        } else {
+            snake.direction = "up";
+        }
+        console.log(snake.direction);
+    } 
+
+    document.addEventListener('keydown', keyPressed);
 }
 
 function draw() {
