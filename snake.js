@@ -2,7 +2,7 @@ function init() {
     canvas = document.getElementById('mycanvas');
     W = H = canvas.width = canvas.height = 1000;
     pen = canvas.getContext('2d');
-    cs = 50;
+    cs = 66;
 
     snake = {
         init_len: 5,
@@ -11,7 +11,7 @@ function init() {
         direction: "right",
 
         createSnake: function () {
-            for (var i = this.init_len; i >= 0; i--) {
+            for (var i = this.init_len; i > 0; i--) {
                 this.cells.push({
                     x: i,
                     y: 0
@@ -20,7 +20,9 @@ function init() {
         },
 
         drawSnake: function () {
-            pen.fillReact(this.cells[i].x, this.cells[i].y, cs, cs);
+            for (var i=0; i<this.cells.length; i++) {
+                pen.fillRect(this.cells[i].x*cs, this.cells[i].y*cs, cs-2, cs-2);
+            }
         }
     };
 
@@ -36,7 +38,8 @@ function update() {
 }
 
 function gameloop() {
-
+    draw();
+    update();
 }
 
 init();
